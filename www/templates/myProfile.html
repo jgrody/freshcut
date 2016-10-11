@@ -1,0 +1,15 @@
+<ion-view title="My Profile" cache-view="false" id="page1">
+    <ion-content padding="true" class="has-header">
+        <ion-list id="myProfile-list4">
+            <ion-item class="item-thumbnail-left" id="myProfile-list-item3">
+                <h2>{{user.details.email}}</h2>
+                <p style="white-space:normal;">{{user.get('type')}} - {{user.id}}</p>
+            </ion-item>
+        </ion-list>
+        <div id="myProfile-markdown10" style="color:#000000;">
+            <p>Onboarded: {{user.get('onboarded')}}</p>
+
+            <p>Role: {{user.get('role')}}</p>
+        </div>
+    </ion-content>
+</ion-view>

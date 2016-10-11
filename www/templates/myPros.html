@@ -1,0 +1,25 @@
+<ion-view title="My Pros" cache-view="false">
+    <ion-nav-buttons side="secondary">
+        <button class="button icon ion-plus-round" ui-sref="menu.addPro"></button>
+    </ion-nav-buttons>
+    <ion-content padding="true" class="has-header">
+        <ion-list ng-repeat="pro in list | orderBy: 'name'" ng-if="list.length" can-swipe="true">
+            <ion-item class="item-avatar item-icon-right">
+                <img src="/img/avatar-img.png">
+                <h2>{{pro.name}}</h2>
+                <p style="white-space:normal;">{{pro.phone}}</p>
+
+                <ion-option-button class="button-assertive" ng-click="removePro(pro)">
+                    <i class="icon ion-ios-trash"></i>
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="removePro()">
+                    <i class="icon ion-ios-telephone"></i>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+
+        <div ng-if="!list.length" class="item item-text-wrap" align="center">
+            No pros yet. Click "+" to add some!
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,26 @@
+<ion-view title="Add Pro" cache-view="false" nav-transition="none" id="page7">
+    <ion-content padding="true" scroll="false" class="has-header">
+        <div id="addPro-markdown8" ng-if="errors.phone" style="color:#000000;" class="error-box">
+            <p>{{errors.phone}}</p>
+        </div>
+        <div id="addPro-markdown9" ng-if="errors.name" style="color:#000000;" class="error-box">
+            <p>{{errors.name}}</p>
+        </div>
+        <form id="addPro-form4" class="list" novalidate="&quot;&quot;">
+            <label class="item item-input" id="addPro-input9">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="" ng-model="pro.name">
+            </label>
+            <label class="item item-input" id="addPro-input10">
+                <span class="input-label">Phone</span>
+                <input type="tel" placeholder="" ng-model="pro.phone" maxlength="10" required="&quot;true&quot;">
+            </label>
+        </form>
+        <form id="addPro-form7" class="list">
+            <label class="item item-input" id="addPro-textarea2">
+                <span class="input-label">Specialties</span><textarea placeholder="" ng-model="pro.specialties"></textarea>
+            </label>
+        </form>
+        <button id="addPro-button10" ng-click="add()" ng-disabled="!pro.name || !pro.phone" style="border-radius:4px 4px 4px 4px;" class="button button-dark button-large button-block icon ion-android-add">Add</button>
+    </ion-content>
+</ion-view>

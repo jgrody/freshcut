@@ -1,0 +1,26 @@
+<ion-view title="Edit Client" id="page9">
+    <ion-content padding="true" class="has-header">
+        <div class="spacer" style="width: 300px; height: 15px;"></div>
+        <form id="editClient-form9" class="list">
+            <div id="editClient-markdown11" ng-if="errors.remove" style="color:#000000;" class="error-box">
+                <p>{{errors.remove}}</p>
+            </div>
+            <div class="spacer" style="width: 300px; height: 15px;"></div>
+            <label class="item item-input" id="editClient-input11">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="" ng-model="client.name" required="&quot;true&quot;">
+            </label>
+            <label class="item item-input" id="editClient-input12">
+                <span class="input-label">Phone</span>
+                <input type="tel" placeholder="" ng-model="client.phone" required="&quot;true&quot;">
+            </label>
+            <label class="item item-input" id="editClient-input13">
+                <span class="input-label">Zipcode</span>
+                <input type="tel" placeholder="" ng-model="client.zipcode" required="&quot;true&quot;">
+            </label>
+        </form>
+        <button id="editClient-button12" ng-click="update()" ng-disabled="!client.name || !client.phone || !client.zipcode" class="button button-dark  button-block">Update</button>
+        <a ui-sref="menu.myClients" id="editClient-button13" class="button button-stable  button-block">Cancel</a>
+        <button id="editClient-button15" ng-click="removeClient()" class="button button-assertive  button-block button-clear">Delete</button>
+    </ion-content>
+</ion-view>

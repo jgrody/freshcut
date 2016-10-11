@@ -1,0 +1,25 @@
+<ion-view title="Add Client" cache-view="false" nav-transition="none" id="page5">
+    <ion-content padding="true" scroll="false" class="has-header">
+        <div id="addClient-markdown6" ng-if="errors.phone" style="color:#000000;" class="error-box">
+            <p>{{errors.phone}}</p>
+        </div>
+        <div id="addClient-markdown7" ng-if="errors.name" style="color:#000000;" class="error-box">
+            <p>{{errors.name}}</p>
+        </div>
+        <form id="addClient-form3" class="list" novalidate="&quot;&quot;">
+            <label class="item item-input" id="addClient-input7">
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="" ng-model="client.name" required="&quot;true&quot;">
+            </label>
+            <label class="item item-input" id="addClient-input6">
+                <span class="input-label">Phone</span>
+                <input type="tel" placeholder="" ng-model="client.phone" required="&quot;true&quot;" maxlength="10">
+            </label>
+            <label class="item item-input" id="addClient-input8">
+                <span class="input-label">Zipcode</span>
+                <input type="tel" placeholder="" ng-model="client.zipcode" maxlength="5" required="&quot;true&quot;">
+            </label>
+        </form>
+        <button id="addClient-button9" ng-click="add()" ng-disabled="!client.name || !client.phone || !client.zipcode" style="border-radius:4px 4px 4px 4px;" class="button button-dark button-large button-block icon ion-android-add">Add</button>
+    </ion-content>
+</ion-view>

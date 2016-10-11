@@ -1,0 +1,23 @@
+<ion-view title="My Clients" cache-view="false">
+    <ion-nav-buttons side="secondary">
+        <button class="button icon ion-plus-round" ui-sref="menu.addClient"></button>
+    </ion-nav-buttons>
+    <ion-content padding="true" class="has-header">
+        <ion-list ng-repeat="client in list | orderBy: 'name'" ng-if="list.length" can-swipe="true">
+            <ion-item item="client" class="item-avatar item-icon-right" ng-click="goToClient(client)">
+                <img src="/img/avatar-img.png">
+                <h2>{{client.name}}</h2>
+                <p style="white-space:normal;">{{client.phone}}</p>
+
+                <ion-option-button class="button-assertive" ng-click="removeClient(client)">
+                    <i class="icon ion-ios-trash"></i>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+
+        <div ng-if="!list.length" class="item item-text-wrap" align="center">
+            No clients yet. Click "+" to add some!
+        </div>
+
+    </ion-content>
+</ion-view>
