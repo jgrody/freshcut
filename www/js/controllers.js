@@ -252,7 +252,7 @@ angular.module('app.controllers', [])
 
 }])
    
-.controller('clientsCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'clientsRepo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, clientsRepo) {
+.controller('clientsCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'repo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, repo) {
     var ref, clientsRef, list;
     
     ref = firebase.database().ref();
@@ -260,7 +260,7 @@ angular.module('app.controllers', [])
     $scope.list = $firebaseArray(clientsRef);
     
     $scope.removeClient = function(client){
-        return clientsRepo.removeFromList($scope.list, client)
+        return repo.removeFromList($scope.list, client)
             .then(function(res){
                 if (res) goTo.clients();
             })
@@ -276,7 +276,7 @@ angular.module('app.controllers', [])
     
 }])
    
-.controller('prosCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'clientsRepo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, clientsRepo) {
+.controller('prosCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'repo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, repo) {
     var ref, proRef, list;
     
     ref = firebase.database().ref();
@@ -284,7 +284,7 @@ angular.module('app.controllers', [])
     $scope.list = $firebaseArray(proRef);
     
     $scope.remove = function(pro){
-        return clientsRepo.removeFromList($scope.list, pro)
+        return repo.removeFromList($scope.list, pro)
             .then(function(res){
                 if (res) goTo.pros();
             })
@@ -300,10 +300,10 @@ angular.module('app.controllers', [])
     
 }])
    
-.controller('clientProfileCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'clientsRepo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('clientProfileCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'repo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, clientsRepo) {
+function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, repo) {
     var ref;
     var clientRef;
     var ID = $stateParams.id;
@@ -319,17 +319,17 @@ function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, clientsRepo) 
     }
     
     $scope.remove = function(){
-        return clientsRepo.removeObject($scope.client).then(function(res){
+        return repo.removeObject($scope.client).then(function(res){
             if (res) goTo.clients();
         })
     }
     
 }])
    
-.controller('proProfileCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'clientsRepo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('proProfileCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'repo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, clientsRepo) {
+function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, repo) {
     var ref;
     var proRef;
     var ID = $stateParams.id;
@@ -345,7 +345,7 @@ function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, clientsRepo) 
     }
     
     $scope.remove = function(){
-        return clientsRepo.removeObject($scope.pro).then(function(res){
+        return repo.removeObject($scope.pro).then(function(res){
             if (res) goTo.pros();
         })
     }

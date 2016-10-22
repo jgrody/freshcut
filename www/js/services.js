@@ -105,7 +105,7 @@ angular.module('app.services', [])
         },
     }
 }])
-.factory('clientsRepo', ['$state', 'popupFactory', function($state, popupFactory){
+.factory('repo', ['$state', 'popupFactory', function($state, popupFactory){
     return {
         removeObject: function(object){
             return popupFactory.confirm({
