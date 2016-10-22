@@ -1,0 +1,16 @@
+<ion-view title="Clients" cache-view="false" nav-transition="none" id="page11">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button icon ion-plus" ng-click="goToAddNew()"></button>
+  </ion-nav-buttons>
+  <ion-content padding="false" class=" manual-remove-top-padding has-header">
+    <ion-list id="clients-list7" show-delete="showDelete">
+      <ion-item class="item-avatar" id="clients-list-item15" ui-sref="menu.clientProfile({})" collection-repeat="client in list | orderBy: 'name'" ng-click="goToClient(client)">
+        <img src="img/DJzHUXHhSIdSKV2WrotQ_profile_image.jpg">
+        <h2>{{client.name}}</h2>
+        <p style="white-space:normal;">{{client.phone}}</p>
+        <ion-option-button class="button-assertive" ng-click="removeClient(client)">Delete</ion-option-button>
+        <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -20,44 +20,16 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.myClients', {
-    url: '/page2',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/myClients.html',
-        controller: 'myClientsCtrl'
-      }
-    }
-  })
-
-  .state('menu.myPros', {
-    url: '/page6',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/myPros.html',
-        controller: 'myProsCtrl'
-      }
-    }
-  })
-
-  .state('menu.addClient', {
+  .state('addClient', {
     url: '/page5',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/addClient.html',
-        controller: 'addClientCtrl'
-      }
-    }
+    templateUrl: 'templates/addClient.html',
+    controller: 'addClientCtrl'
   })
 
-  .state('menu.addPro', {
+  .state('addPro', {
     url: '/page7',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/addPro.html',
-        controller: 'addProCtrl'
-      }
-    }
+    templateUrl: 'templates/addPro.html',
+    controller: 'addProCtrl'
   })
 
   .state('menu', {
@@ -73,7 +45,10 @@ angular.module('app.routes', [])
   })
 
   .state('signup', {
-    url: '/page4/:role',
+    url: '/page4',
+	params: {
+		role: "'Professional'"		
+},
     templateUrl: 'templates/signup.html',
     controller: 'signupCtrl'
   })
@@ -84,12 +59,67 @@ angular.module('app.routes', [])
     controller: 'roleSelectionCtrl'
   })
 
-  .state('menu.editClient', {
-    url: '/page9/:client',
+  .state('editClient', {
+    url: '/page9',
+	params: {
+		id: ""		
+},
+    templateUrl: 'templates/editClient.html',
+    controller: 'editClientCtrl'
+  })
+
+  .state('menu.mapsExample', {
+    url: '/page10',
     views: {
       'side-menu21': {
-        templateUrl: 'templates/editClient.html',
-        controller: 'editClientCtrl'
+        templateUrl: 'templates/mapsExample.html',
+        controller: 'mapsExampleCtrl'
+      }
+    }
+  })
+
+  .state('menu.clients', {
+    url: '/page11',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/clients.html',
+        controller: 'clientsCtrl'
+      }
+    }
+  })
+
+  .state('menu.pros', {
+    url: '/page13',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/pros.html',
+        controller: 'prosCtrl'
+      }
+    }
+  })
+
+  .state('menu.clientProfile', {
+    url: '/page12',
+	params: {
+		id: ""		
+},
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/clientProfile.html',
+        controller: 'clientProfileCtrl'
+      }
+    }
+  })
+
+  .state('menu.proProfile', {
+    url: '/page15',
+	params: {
+		id: ""		
+},
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/proProfile.html',
+        controller: 'proProfileCtrl'
       }
     }
   })

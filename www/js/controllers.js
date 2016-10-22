@@ -1,73 +1,14 @@
 angular.module('app.controllers', [])
   
-.controller('myProfileCtrl', ['$scope', '$stateParams', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser) {
+.controller('myProfileCtrl', ['$scope', '$stateParams', '$ionicUser', function ($scope, $stateParams, $ionicUser) {
     $scope.user = {};
     
     $ionicUser.load().then(function(user){
-        console.log('user:', $ionicUser);
         $scope.user = $ionicUser;
     })
-
 }])
    
-.controller('myClientsCtrl', ['$scope', '$state', '$stateParams', '$ionicUser', '$firebaseArray', 'popupFactory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, $ionicUser, $firebaseArray, popupFactory) {
-    var ref, clientsRef, list;
-    
-    $ionicUser.load().then(function(user){
-        ref = firebase.database().ref();
-        clientsRef = ref.child($ionicUser.id).child('clients');
-        $scope.list = $firebaseArray(clientsRef);
-    });
-    
-    $scope.removeClient = function(client){
-        popupFactory.confirm({
-            title: 'Are you sure?'
-        }).then(function(res){
-            if (res){
-                $scope.list.$remove(client);
-            }
-        })
-    }
-    
-    $scope.goToClient = function(client){
-        $state.go('menu.editClient', {client: JSON.stringify(client)})
-    }
-}])
-   
-.controller('myProsCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseArray', 'popupFactory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $firebaseArray, popupFactory) {
-    var ref, clientsRef, list;
-    
-    $ionicUser.load().then(function(user){
-        console.log('load');
-        ref = firebase.database().ref();
-        prosRef = ref.child($ionicUser.id).child('pros');
-        $scope.list = $firebaseArray(prosRef);
-    });
-    
-    $scope.removePro = function(pro){
-        popupFactory.confirm({
-            title: 'Are you sure?'
-        }).then(function(res){
-            if (res){
-                $scope.list.$remove(pro);
-            }
-        })
-    }
-}])
-   
-.controller('addClientCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseArray', '$state', 'Validator', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator) {
+.controller('addClientCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseArray', '$state', 'Validator', 'goTo', 'popupFactory', function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator, goTo, popupFactory) {
     $ionicUser.load().then(function(){});
     
     $scope.errors = {};
@@ -92,17 +33,18 @@ function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator) {
             Validator.validate('phone', $scope.client.phone)
         ) {
             list.$add($scope.client).then(function(arg){
-                $state.go('menu.myClients')
+                popupFactory.alert({
+                    title: 'User added!'
+                }).then(function(res){
+                    goTo.clients();
+                })
             })
         }
     }
 
 }])
    
-.controller('addProCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseArray', '$state', 'Validator', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator) {
+.controller('addProCtrl', ['$scope', '$ionicUser', '$firebaseArray', '$state', 'Validator', 'goTo', function ($scope, $ionicUser, $firebaseArray, $state, Validator, goTo) {
     $ionicUser.load().then(function(){});
     
     $scope.errors = {};
@@ -126,7 +68,7 @@ function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator) {
             Validator.validate('phone', $scope.pro.phone)
         ) {
             list.$add($scope.pro).then(function(arg){
-                $state.go('menu.myPros')
+                goTo.pros()
             })
         }
     }
@@ -165,15 +107,10 @@ function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator) {
         var digits = $scope.pro.phone.replace(/\D/g, "");
         return digits.match(phoneRe) !== null;
     }
-    
-    
 
 }])
    
-.controller('menuCtrl', ['$scope', '$stateParams', '$ionicUser', '$ionicAuth', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
+.controller('menuCtrl', ['$scope', '$stateParams', '$ionicUser', '$ionicAuth', '$state', function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
     
     $scope.userData = $ionicUser.details;
     var onboarded = $ionicUser.get('onboarded');
@@ -190,10 +127,7 @@ function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
 
 }])
    
-.controller('loginCtrl', ['$scope', '$stateParams', '$ionicUser', '$ionicAuth', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
+.controller('loginCtrl', ['$scope', '$stateParams', '$ionicUser', '$ionicAuth', '$state', function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
 
     $scope.data = {
         'email': '',
@@ -223,10 +157,7 @@ function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
 
 }])
    
-.controller('signupCtrl', ['$scope', '$stateParams', '$ionicAuth', '$ionicUser', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicAuth, $ionicUser, $state) {
+.controller('signupCtrl', ['$scope', '$stateParams', '$ionicAuth', '$ionicUser', '$state', function ($scope, $stateParams, $ionicAuth, $ionicUser, $state) {
     
     $scope.data = {
         'name': '',
@@ -266,12 +197,8 @@ function ($scope, $stateParams, $ionicAuth, $ionicUser, $state) {
 
 }])
    
-.controller('roleSelectionCtrl', ['$scope', '$stateParams', '$ionicUser', '$ionicAuth', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
+.controller('roleSelectionCtrl', ['$scope', '$stateParams', '$ionicUser', '$ionicAuth', '$state', function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
     
-    console.log('use:', $ionicUser)
     if ($ionicAuth.isAuthenticated()) {
         // Make sure the user data is going to be loaded
         $ionicUser.load().then(function() {});
@@ -282,21 +209,22 @@ function ($scope, $stateParams, $ionicUser, $ionicAuth, $state) {
     
 }])
    
-.controller('editClientCtrl', ['$scope', '$state', '$stateParams', '$ionicUser', '$firebaseObject', 'popupFactory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, $ionicUser, $firebaseObject, popupFactory) {
-    var client = JSON.parse($stateParams.client);
+.controller('editClientCtrl', ['$scope', '$state', '$stateParams', '$ionicUser', '$firebaseObject', 'popupFactory', 'goTo', function ($scope, $state, $stateParams, $ionicUser, $firebaseObject, popupFactory, goTo) {
+    
+    var ID = $stateParams.id;
     
     var ref = firebase.database().ref();
-    var clientRef = ref.child($ionicUser.id).child('clients').child(client.$id)
+    var clientRef = ref.child($ionicUser.id).child('clients').child(ID)
     $scope.client = $firebaseObject(clientRef);
     
     $scope.errors = {};
     
     $scope.update = function(){
         $scope.client.$save().then(function(ref){
-            $state.go('menu.myClients')
+            goTo.showClient($scope.client);
+        }, function(error){
+            console.log('error', error);
+          $scope.errors.update = error;  
         })
     }
     
@@ -306,12 +234,121 @@ function ($scope, $state, $stateParams, $ionicUser, $firebaseObject, popupFactor
         }).then(function(res){
             if (res){
                 $scope.client.$remove().then(function(ref){
-                    $state.go('menu.myClients')
+                    goTo.clients();
                 }, function(error){
                     $scope.errors.remove = error;
                 })
             }
         })
     }
+    
+    $scope.cancel = function(){
+        goTo.showClient($scope.client);
+    }
+}])
+   
+.controller('mapsExampleCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
+
+
+}])
+   
+.controller('clientsCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'clientsRepo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, clientsRepo) {
+    var ref, clientsRef, list;
+    
+    ref = firebase.database().ref();
+    clientsRef = ref.child($ionicUser.id).child('clients');
+    $scope.list = $firebaseArray(clientsRef);
+    
+    $scope.removeClient = function(client){
+        return clientsRepo.removeFromList($scope.list, client)
+            .then(function(res){
+                if (res) goTo.clients();
+            })
+    };
+    
+    $scope.goToClient = function(client){
+       goTo.showClient(client);
+    };
+    
+    $scope.goToAddNew = function(){
+        goTo.addClient();
+    }
+    
+}])
+   
+.controller('prosCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'clientsRepo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, clientsRepo) {
+    var ref, proRef, list;
+    
+    ref = firebase.database().ref();
+    proRef = ref.child($ionicUser.id).child('pros');
+    $scope.list = $firebaseArray(proRef);
+    
+    $scope.remove = function(pro){
+        return clientsRepo.removeFromList($scope.list, pro)
+            .then(function(res){
+                if (res) goTo.pros();
+            })
+    };
+    
+    $scope.view = function(pro){
+       goTo.showPro(pro);
+    };
+    
+    $scope.goToAddNew = function(){
+        goTo.addPro();
+    }
+    
+}])
+   
+.controller('clientProfileCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'clientsRepo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, clientsRepo) {
+    var ref;
+    var clientRef;
+    var ID = $stateParams.id;
+    
+    $ionicUser.load().then(function(){
+        ref = firebase.database().ref();
+        clientRef = ref.child($ionicUser.id).child('clients').child(ID)
+        $scope.client = $firebaseObject(clientRef);
+    })
+    
+    $scope.editClient = function(){
+        goTo.editClient($scope.client);
+    }
+    
+    $scope.remove = function(){
+        return clientsRepo.removeObject($scope.client).then(function(res){
+            if (res) goTo.clients();
+        })
+    }
+    
+}])
+   
+.controller('proProfileCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'clientsRepo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, clientsRepo) {
+    var ref;
+    var proRef;
+    var ID = $stateParams.id;
+    
+    $ionicUser.load().then(function(){
+        ref = firebase.database().ref();
+        proRef = ref.child($ionicUser.id).child('pros').child(ID)
+        $scope.pro = $firebaseObject(proRef);
+    })
+    
+    $scope.editClient = function(){
+        goTo.editClient($scope.pro);
+    }
+    
+    $scope.remove = function(){
+        return clientsRepo.removeObject($scope.pro).then(function(res){
+            if (res) goTo.pros();
+        })
+    }
+    
 }])
  

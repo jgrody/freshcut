@@ -1,0 +1,16 @@
+<ion-view title="Client Profile" cache-view="false" id="page12">
+  <ion-content padding="false" class=" manual-remove-top-padding has-header">
+    <div class="item item-body" id="clientProfile-list-item-container3">
+      <div class="profile-image">
+        <img src="img/np2B0PKSwGVSTRhyKQ6C_profile_image.jpg" width="40%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+      </div>
+      <h1 id="clientProfile-heading4" style="color:#000000;font-weight:lighter;text-align:center;">{{client.name}}</h1>
+      <h4 id="clientProfile-heading5" style="color:#615E5E;text-align:center;">Phone: {{client.phone}} | Zip: {{client.zipcode}} </h4>
+      <div id="clientProfile-button-bar2" class="button-bar">
+        <a href="tel:{{client.phone}}" id="clientProfile-button19" class="button button-stable  button-block icon ion-ios-telephone"></a>
+        <button id="clientProfile-button20" ng-click="editClient()" class="button button-stable  button-block icon ion-edit"></button>
+        <button id="clientProfile-button21" ng-click="remove()" class="button button-stable  button-block icon ion-trash-b"></button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

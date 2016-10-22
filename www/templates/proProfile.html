@@ -1,0 +1,16 @@
+<ion-view title="Pro Profile" cache-view="false" id="page15">
+  <ion-content padding="false" class=" manual-remove-top-padding has-header">
+    <div class="item item-body" id="proProfile-list-item-container5">
+      <div class="profile-image">
+        <img src="img/np2B0PKSwGVSTRhyKQ6C_profile_image.jpg" width="40%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+      </div>
+      <h1 id="proProfile-heading8" style="color:#000000;font-weight:lighter;text-align:center;">{{pro.name}}</h1>
+      <h4 id="proProfile-heading9" style="color:#615E5E;text-align:center;">Phone: {{pro.phone}}</h4>
+      <div id="proProfile-button-bar4" class="button-bar">
+        <a href="tel:{{pro.phone}}" id="proProfile-button26" class="button button-stable  button-block icon ion-ios-telephone"></a>
+        <button id="proProfile-button27" ng-click="editPro()" class="button button-stable  button-block icon ion-edit"></button>
+        <button id="proProfile-button28" ng-click="remove()" class="button button-stable  button-block icon ion-trash-b"></button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

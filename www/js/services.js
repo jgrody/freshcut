@@ -9,6 +9,11 @@ angular.module('app.services', [])
             }
             
             return $ionicPopup.confirm(angular.extend({}, defaults, options));
+        },
+        alert: function(options){
+            var defaults = {}
+            
+            return $ionicPopup.alert(angular.extend({}, defaults, options))
         }
     }
 }])
@@ -64,4 +69,61 @@ angular.module('app.services', [])
             return errors.phone;
         }
     }
-}]);
+}])
+.service('goTo', ['$state', function($state){
+    return {
+        clients: function(){
+            return $state.go('menu.clients');
+        },
+        
+        editClient: function(client){
+            return $state.go('editClient', {id: client.$id})
+        },
+        
+        showClient: function(client){
+            return $state.go('menu.clientProfile', {id: client.$id})
+        },
+        
+        addClient: function(){
+           return $state.go('addClient') 
+        },
+        
+        pros: function(){
+            return $state.go('menu.pros');
+        },
+        
+        editPro: function(pro){
+            return $state.go('editPro', {id: pro.$id})
+        },
+        
+        showPro: function(pro){
+            return $state.go('menu.proProfile', {id: pro.$id})
+        },
+        
+        addPro: function(){
+           return $state.go('addPro') 
+        },
+    }
+}])
+.factory('clientsRepo', ['$state', 'popupFactory', function($state, popupFactory){
+    return {
+        removeObject: function(object){
+            return popupFactory.confirm({
+                title: 'Are you sure?'
+            }).then(function(res){
+                if (res){
+                    return object.$remove();
+                }
+            });
+        },
+        removeFromList: function(list, object){
+            return popupFactory.confirm({
+                title: 'Are you sure?'
+            }).then(function(res){
+                if (res){
+                    return list.$remove(object);
+                }
+            });
+        }
+    }
+}])
