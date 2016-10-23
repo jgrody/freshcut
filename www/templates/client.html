@@ -1,0 +1,19 @@
+<ion-view title="Client" hide-back-button="true" cache-view="false" nav-transition="none" id="page12">
+  <ion-nav-buttons side="left" class="has-header">
+    <button class="button button-icon icon ion-ios-arrow-back" ng-click="backToClients()"> Back</button>
+  </ion-nav-buttons>
+  <ion-content padding="false" class="has-header">
+    <div class="item item-body border-bottom-none" id="client-list-item-container3">
+      <div class="profile-image">
+        <img src="img/np2B0PKSwGVSTRhyKQ6C_profile_image.jpg" width="35%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+      </div>
+      <h1 id="client-heading4" style="color:#000000;font-weight:lighter;text-align:center;">{{client.name}}</h1>
+      <h4 id="client-heading5" style="color:#615E5E;text-align:center;">Phone: {{client.phone}} | Zip: {{client.zipcode}} </h4>
+      <div id="client-button-bar2" class="button-bar">
+        <a href="tel:{{client.phone}}" id="client-button19" class="button button-balanced  button-block button-clear icon ion-ios-telephone"></a>
+        <button id="client-button20" ng-click="editClient()" class="button button-calm  button-block button-clear icon ion-edit"></button>
+        <button id="client-button21" ng-click="remove()" class="button button-assertive  button-block button-clear icon ion-trash-b"></button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

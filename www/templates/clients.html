@@ -1,4 +1,4 @@
-<ion-view title="Clients" cache-view="false" nav-transition="none" id="page11">
+<ion-view title="Clients" hide-back-button="true" cache-view="false" id="page11">
   <ion-nav-buttons side="right" class="has-header">
     <button class="button icon ion-plus" ng-click="goToAddNew()"></button>
   </ion-nav-buttons>
@@ -8,11 +8,11 @@
       <div class="profile-image">
         <img src="img/QYc979RYSry8D9VgAW5g_no_results_found.jpg" width="50%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
       </div>
-      <div class="spacer" style="width: 320px; height: 36px;"></div>
+      <div class="spacer" style="width: 320px; height: 34px;"></div>
       <h4 id="clients-heading10" style="color:#000000;text-align:center;">You haven't added any clients yet. Click the "+" button above to add some!</h4>
     </div>
     <ion-list id="clients-list13" ng-if="list.length">
-      <ion-item class="item-avatar" id="clients-list-item15" ui-sref="clientProfile({})" collection-repeat="client in list | orderBy: 'name'" ng-click="goToClient(client)">
+      <ion-item class="item-avatar" id="clients-list-item15" ui-sref="client({})" collection-repeat="client in list | orderBy: 'name'" ng-click="goToClient(client)">
         <img src="img/DJzHUXHhSIdSKV2WrotQ_profile_image.jpg">
         <h2>{{client.name}}</h2>
         <p style="white-space:normal;">{{client.phone}}</p>

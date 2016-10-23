@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content padding="false" class=" manual-remove-top-padding has-header">
     <ion-list id="pros-list8" show-delete="showDelete">
-      <ion-item class="item-avatar" id="pros-list-item16" ui-sref="menu.proProfile({})" collection-repeat="pro in list | orderBy: 'name'" ng-click="view(pro)">
+      <ion-item class="item-avatar" id="pros-list-item16" ui-sref="pro({})" collection-repeat="pro in list | orderBy: 'name'" ng-click="view(pro)">
         <img src="img/DJzHUXHhSIdSKV2WrotQ_profile_image.jpg">
         <h2>{{pro.name}}</h2>
         <p style="white-space:normal;">{{pro.phone}}</p>

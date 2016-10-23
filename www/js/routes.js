@@ -7,8 +7,8 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
-
+    
+  
 
       .state('menu.myProfile', {
     url: '/page1',
@@ -47,7 +47,7 @@ angular.module('app.routes', [])
   .state('signup', {
     url: '/page4',
 	params: {
-		role: "'Professional'"
+		role: "'Professional'"		
 },
     templateUrl: 'templates/signup.html',
     controller: 'signupCtrl'
@@ -62,7 +62,7 @@ angular.module('app.routes', [])
   .state('editClient', {
     url: '/page9',
 	params: {
-		id: ""
+		id: ""		
 },
     templateUrl: 'templates/editClient.html',
     controller: 'editClientCtrl'
@@ -98,34 +98,26 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.clientProfile', {
+  .state('client', {
     url: '/page12',
-    params: {
-      id: ""
-    },
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/clientProfile.html',
-        controller: 'clientProfileCtrl'
-      }
-    }
+	params: {
+		id: ""		
+},
+    templateUrl: 'templates/client.html',
+    controller: 'clientCtrl'
   })
 
-  .state('menu.proProfile', {
+  .state('pro', {
     url: '/page15',
-    params: {
-      id: ""
-    },
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/proProfile.html',
-        controller: 'proProfileCtrl'
-      }
-    }
+	params: {
+		id: ""		
+},
+    templateUrl: 'templates/pro.html',
+    controller: 'proCtrl'
   })
 
 $urlRouterProvider.otherwise('/page8')
 
-
+  
 
 });

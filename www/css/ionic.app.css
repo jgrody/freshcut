@@ -9779,6 +9779,9 @@ ui-gmap-google-map {
     ui-gmap-google-map .angular-google-map .angular-google-map-container {
       height: 100%; }
 
+.border-bottom-none {
+  border-bottom: none; }
+
 body.platform-ios {
   font-family: Montserrat, sans-serif; }
 

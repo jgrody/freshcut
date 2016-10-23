@@ -1,0 +1,20 @@
+<ion-view title="Pro" hide-back-button="true" cache-view="false" nav-transition="none" id="page15">
+  <ion-nav-buttons side="left" class="has-header">
+    <button class="button button-icon icon ion-ios-arrow-back" ng-click="backToPros()"> Back</button>
+  </ion-nav-buttons>
+  <ion-content padding="false" class=" manual-remove-top-padding has-header">
+    <div class="item item-body border-bottom-none" id="pro-list-item-container5">
+      <div class="profile-image">
+        <img src="img/np2B0PKSwGVSTRhyKQ6C_profile_image.jpg" width="40%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+      </div>
+      <div class="spacer" style="width: 288px; height: 25px;"></div>
+      <h1 id="pro-heading8" style="color:#000000;font-weight:lighter;text-align:center;">{{pro.name}}</h1>
+      <h4 id="pro-heading9" style="color:#615E5E;text-align:center;">Phone: {{pro.phone}}</h4>
+      <div id="pro-button-bar4" class="button-bar">
+        <a href="tel:{{pro.phone}}" id="pro-button26" class="button button-balanced  button-block button-clear icon ion-ios-telephone"></a>
+        <button id="pro-button27" ng-click="editPro()" ng-disabled="'true'" class="button button-calm  button-block button-clear icon ion-edit"></button>
+        <button id="pro-button28" ng-click="remove()" class="button button-assertive  button-block button-clear icon ion-trash-b"></button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

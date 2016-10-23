@@ -7,12 +7,12 @@ angular.module('app.services', [])
                 cancelText: 'No',
                 okText: 'Yes'
             }
-
+            
             return $ionicPopup.confirm(angular.extend({}, defaults, options));
         },
         alert: function(options){
             var defaults = {}
-
+            
             return $ionicPopup.alert(angular.extend({}, defaults, options))
         }
     }
@@ -25,7 +25,7 @@ angular.module('app.services', [])
             var digits = num.replace(/\D/g, "");
             return digits.match(phoneRe) !== null;
         },
-
+        
         validate: function(type, object){
             switch(type){
                 case 'phone':
@@ -37,35 +37,35 @@ angular.module('app.services', [])
                     return object && object.length;
             }
         },
-
+        
         setNameErrors: function(name){
             var errors = {};
-
+            
             if (name.length){
                 errors.name = "";
             } else {
                 errors.name = "Name is a required field";
             }
-
+            
             return errors.name;
         },
-
+        
         setPhoneErrors: function(phone){
             var errors = {};
             var isValid = this.phoneIsValid(phone);
-
+       
             if (phone.length){
                 errors.phone = "Phone number is a required field"
             }
-
+        
             if (!isValid) {
                 errors.phone = "Phone number is invalid";
             }
-
+        
             if (phone.length && isValid){
                 errors.phone = "";
             }
-
+            
             return errors.phone;
         }
     }
@@ -75,33 +75,33 @@ angular.module('app.services', [])
         clients: function(){
             return $state.go('menu.clients');
         },
-
+        
         editClient: function(client){
             return $state.go('editClient', {id: client.$id})
         },
-
+        
         showClient: function(client){
-            return $state.go('menu.clientProfile', {id: client.$id})
+            return $state.go('client', {id: client.$id})
         },
-
+        
         addClient: function(){
-           return $state.go('addClient')
+           return $state.go('addClient') 
         },
-
+        
         pros: function(){
             return $state.go('menu.pros');
         },
-
+        
         editPro: function(pro){
             return $state.go('editPro', {id: pro.$id})
         },
-
+        
         showPro: function(pro){
-            return $state.go('menu.proProfile', {id: pro.$id})
+            return $state.go('pro', {id: pro.$id})
         },
-
+        
         addPro: function(){
-           return $state.go('addPro')
+           return $state.go('addPro') 
         },
     }
 }])
