@@ -98,17 +98,13 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.clientProfile', {
+  .state('clientProfile', {
     url: '/page12',
 	params: {
 		id: ""		
 },
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/clientProfile.html',
-        controller: 'clientProfileCtrl'
-      }
-    }
+    templateUrl: 'templates/clientProfile.html',
+    controller: 'clientProfileCtrl'
   })
 
   .state('menu.proProfile', {

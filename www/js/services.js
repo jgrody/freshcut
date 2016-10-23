@@ -81,7 +81,7 @@ angular.module('app.services', [])
         },
         
         showClient: function(client){
-            return $state.go('menu.clientProfile', {id: client.$id})
+            return $state.go('clientProfile', {id: client.$id})
         },
         
         addClient: function(){

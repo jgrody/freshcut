@@ -3,13 +3,20 @@
     <button class="button icon ion-plus" ng-click="goToAddNew()"></button>
   </ion-nav-buttons>
   <ion-content padding="false" class=" manual-remove-top-padding has-header">
-    <ion-list id="clients-list7" show-delete="showDelete">
-      <ion-item class="item-avatar" id="clients-list-item15" ui-sref="menu.clientProfile({})" collection-repeat="client in list | orderBy: 'name'" ng-click="goToClient(client)">
+    <div id="clients-container1" ng-if="!list.length">
+      <div class="spacer" style="width: 320px; height: 36px;"></div>
+      <div class="profile-image">
+        <img src="img/QYc979RYSry8D9VgAW5g_no_results_found.jpg" width="50%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+      </div>
+      <div class="spacer" style="width: 320px; height: 36px;"></div>
+      <h4 id="clients-heading10" style="color:#000000;text-align:center;">You haven't added any clients yet. Click the "+" button above to add some!</h4>
+    </div>
+    <ion-list id="clients-list13" ng-if="list.length">
+      <ion-item class="item-avatar" id="clients-list-item15" ui-sref="clientProfile({})" collection-repeat="client in list | orderBy: 'name'" ng-click="goToClient(client)">
         <img src="img/DJzHUXHhSIdSKV2WrotQ_profile_image.jpg">
         <h2>{{client.name}}</h2>
         <p style="white-space:normal;">{{client.phone}}</p>
         <ion-option-button class="button-assertive" ng-click="removeClient(client)">Delete</ion-option-button>
-        <ion-delete-button class="ion-minus-circled"></ion-delete-button>
       </ion-item>
     </ion-list>
   </ion-content>
