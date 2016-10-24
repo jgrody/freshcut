@@ -1,4 +1,7 @@
-<ion-view title="Edit Client" id="page9">
+<ion-view title="Edit Client" hide-back-button="true" nav-transition="none" id="page9">
+  <ion-nav-buttons side="left" class="has-header">
+    <button class="button icon ion-ios-arrow-back" ng-click="cancel()"> Back</button>
+  </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <form id="editClient-form9" class="list">
       <div id="editClient-markdown11" ng-if="errors.update" class="error-box">

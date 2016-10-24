@@ -68,16 +68,6 @@ angular.module('app.routes', [])
     controller: 'editClientCtrl'
   })
 
-  .state('menu.mapsExample', {
-    url: '/page10',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/mapsExample.html',
-        controller: 'mapsExampleCtrl'
-      }
-    }
-  })
-
   .state('menu.clients', {
     url: '/page11',
     views: {
@@ -88,14 +78,10 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.pros', {
-    url: '/page13',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/pros.html',
-        controller: 'prosCtrl'
-      }
-    }
+  .state('pros', {
+    url: '/page16',
+    templateUrl: 'templates/pros.html',
+    controller: 'prosCtrl'
   })
 
   .state('client', {
@@ -107,13 +93,19 @@ angular.module('app.routes', [])
     controller: 'clientCtrl'
   })
 
-  .state('pro', {
+  .state('userProfile', {
     url: '/page15',
 	params: {
 		id: ""		
 },
-    templateUrl: 'templates/pro.html',
-    controller: 'proCtrl'
+    templateUrl: 'templates/userProfile.html',
+    controller: 'userProfileCtrl'
+  })
+
+  .state('page', {
+    url: '/page10',
+    templateUrl: 'templates/page.html',
+    controller: 'pageCtrl'
   })
 
 $urlRouterProvider.otherwise('/page8')

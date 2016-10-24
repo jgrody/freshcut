@@ -89,7 +89,7 @@ angular.module('app.services', [])
         },
         
         pros: function(){
-            return $state.go('menu.pros');
+            return $state.go('pros');
         },
         
         editPro: function(pro){
@@ -97,7 +97,7 @@ angular.module('app.services', [])
         },
         
         showPro: function(pro){
-            return $state.go('pro', {id: pro.$id})
+            return $state.go('userProfile', {id: pro.$id})
         },
         
         addPro: function(){

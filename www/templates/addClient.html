@@ -1,4 +1,7 @@
 <ion-view title="Add Client" cache-view="false" id="page5">
+  <ion-nav-buttons side="right" scroll="false" class="has-header">
+    <button class="button icon No Icon" ng-click="import()" ng-disabled="importing"> Import</button>
+  </ion-nav-buttons>
   <ion-content padding="true" scroll="false" class="has-header">
     <div id="addClient-markdown6" ng-if="errors.phone" class="error-box">
       <p style="color:#000000;">{{errors.phone}}</p>

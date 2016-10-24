@@ -8,10 +8,10 @@ angular.module('app.controllers', [])
     })
 }])
    
-.controller('addClientCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseArray', '$state', 'Validator', 'goTo', 'popupFactory', function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator, goTo, popupFactory) {
-    $ionicUser.load().then(function(){});
-    
+.controller('addClientCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseArray', '$state', 'Validator', 'goTo', 'popupFactory', '$http', '$q', function ($scope, $stateParams, $ionicUser, $firebaseArray, $state, Validator, goTo, popupFactory, $http, $q) {
     $scope.errors = {};
+    
+    var sheetsuURL = "https://sheetsu.com/apis/v1.0/2d94e8863d03";
     
     var ref = firebase.database().ref();
     var clientsRef = ref.child($ionicUser.id).child('clients')
@@ -23,6 +23,39 @@ angular.module('app.controllers', [])
         zipcode: ""
     }
     
+    $scope.import = function(){
+        $scope.importing = $http.get(sheetsuURL).then(function(response){
+            var users = response.data;
+            angular.forEach(users, function(value, index){
+                // Dont want to send the google sheets ID with the data
+                delete value.id;
+                
+                // Checking if the phone number already exists in the DB
+                clientsRef
+                    .orderByChild('phone')
+                    .equalTo(value.phone)
+                    .once('value', function(snapshot) {
+                        if (!snapshot.val()) {
+                            console.log('Number doesnt exist: adding...')
+                            add(value)
+                        } else {
+                            console.log('Number: '+value.phone+ ' already exists. Moving on...')
+                        }
+                })
+                
+                // Way of knowing when its finished
+                if (index + 1 == users.length){
+                    delete $scope.importing;
+                    popupFactory.alert({
+                        title: 'Users imported!'
+                    }).then(function(res){
+                        goTo.clients();
+                    })
+                }
+            })
+        })
+    }
+    
     $scope.add = function(){
         $scope.errors.name = Validator.setNameErrors($scope.client.name);
         $scope.errors.phone = Validator.setPhoneErrors($scope.client.phone);
@@ -32,7 +65,7 @@ angular.module('app.controllers', [])
             Validator.validate('existence', $scope.client.zipcode) &&
             Validator.validate('phone', $scope.client.phone)
         ) {
-            list.$add($scope.client).then(function(arg){
+            add($scope.client).then(function(){
                 popupFactory.alert({
                     title: 'User added!'
                 }).then(function(res){
@@ -40,6 +73,10 @@ angular.module('app.controllers', [])
                 })
             })
         }
+    }
+    
+    function add(user){
+        return list.$add(user)
     }
 
 }])
@@ -247,11 +284,6 @@ angular.module('app.controllers', [])
     }
 }])
    
-.controller('mapsExampleCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
-
-
-}])
-   
 .controller('clientsCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'repo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, repo) {
     var ref, clientsRef, list;
     
@@ -277,10 +309,8 @@ angular.module('app.controllers', [])
 }])
    
 .controller('prosCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'repo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, repo) {
-    var ref, proRef, list;
-    
-    ref = firebase.database().ref();
-    proRef = ref.child($ionicUser.id).child('pros');
+    var ref = firebase.database().ref();
+    var proRef = ref.child($ionicUser.id).child('pros');
     $scope.list = $firebaseArray(proRef);
     
     $scope.remove = function(pro){
@@ -290,14 +320,15 @@ angular.module('app.controllers', [])
             })
     };
     
-    $scope.view = function(pro){
+    $scope.showPro = function(pro){
+        console.log(pro.$id)
        goTo.showPro(pro);
     };
     
     $scope.goToAddNew = function(){
         goTo.addPro();
     }
-    
+  
 }])
    
 .controller('clientCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'repo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -330,33 +361,36 @@ function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, repo) {
     
 }])
    
-.controller('proCtrl', ['$scope', '$stateParams', '$ionicUser', '$firebaseObject', 'goTo', 'repo', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('userProfileCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'repo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, repo) {
+    var ref = firebase.database().ref();
+    var proRef = ref.child($ionicUser.id).child('menu.pros');
+    $scope.list = $firebaseArray(proRef);
+    
+    $scope.remove = function(pro){
+        return repo.removeFromList($scope.list, pro)
+            .then(function(res){
+                if (res) goTo.pros();
+            })
+    };
+    
+    $scope.showPro = function(pro){
+        console.log(pro.$id)
+       goTo.showPro(pro);
+    };
+    
+    $scope.goToAddNew = function(){
+        goTo.addPro();
+    }
+  
+}])
+   
+.controller('pageCtrl', ['$scope', '$stateParams', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, repo) {
-    var ref;
-    var proRef;
-    var ID = $stateParams.id;
-    
-    $ionicUser.load().then(function(){
-        ref = firebase.database().ref();
-        proRef = ref.child($ionicUser.id).child('pros').child(ID)
-        $scope.pro = $firebaseObject(proRef);
+function ($scope, $stateParams, $http) {
+    var url = "https://sheetsu.com/apis/v1.0/2d94e8863d03"
+    $http.get(url).then(function(data){
+        console.log('data', data)
     })
-    
-    $scope.editPro = function(){
-        goTo.editPro($scope.pro);
-    }
-    
-    $scope.backToPros = function(){
-        goTo.pros();
-    }
-    
-    $scope.remove = function(){
-        return repo.removeObject($scope.pro).then(function(res){
-            if (res) goTo.pros();
-        })
-    }
-    
 }])
  

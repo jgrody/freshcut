@@ -1,15 +1,22 @@
-<ion-view title="Pros" cache-view="false" nav-transition="none" id="page13">
+<ion-view title="Pros" hide-back-button="true" cache-view="false" id="page16">
   <ion-nav-buttons side="right" class="has-header">
     <button class="button icon ion-plus" ng-click="goToAddNew()"></button>
   </ion-nav-buttons>
   <ion-content padding="false" class=" manual-remove-top-padding has-header">
-    <ion-list id="pros-list8" show-delete="showDelete">
-      <ion-item class="item-avatar" id="pros-list-item16" ui-sref="pro({})" collection-repeat="pro in list | orderBy: 'name'" ng-click="view(pro)">
+    <div id="pros-container3" ng-if="list &amp;&amp; !list.length">
+      <div class="spacer" style="width: 320px; height: 36px;"></div>
+      <div class="profile-image">
+        <img src="img/QYc979RYSry8D9VgAW5g_no_results_found.jpg" width="50%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+      </div>
+      <div class="spacer" style="width: 320px; height: 34px;"></div>
+      <h4 id="pros-heading12" style="color:#000000;text-align:center;">You haven't added any clients yet. Click the "+" button above to add some!</h4>
+    </div>
+    <ion-list id="pros-list10" ng-if="list.length">
+      <ion-item class="item-avatar" id="pros-list-item6" ui-sref="userProfile({})" collection-repeat="pro in list | orderBy: 'name'" ng-click="showPro(pro)">
         <img src="img/DJzHUXHhSIdSKV2WrotQ_profile_image.jpg">
         <h2>{{pro.name}}</h2>
         <p style="white-space:normal;">{{pro.phone}}</p>
         <ion-option-button class="button-assertive" ng-click="remove(pro)">Delete</ion-option-button>
-        <ion-delete-button class="ion-minus-circled"></ion-delete-button>
       </ion-item>
     </ion-list>
   </ion-content>
