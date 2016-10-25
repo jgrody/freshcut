@@ -1,4 +1,4 @@
-<ion-view title="Pros" hide-back-button="true" cache-view="false" id="page16">
+<ion-view title="Pros" cache-view="false" id="page16">
   <ion-nav-buttons side="right" class="has-header">
     <button class="button icon ion-plus" ng-click="goToAddNew()"></button>
   </ion-nav-buttons>
@@ -12,7 +12,7 @@
       <h4 id="pros-heading12" style="color:#000000;text-align:center;">You haven't added any clients yet. Click the "+" button above to add some!</h4>
     </div>
     <ion-list id="pros-list10" ng-if="list.length">
-      <ion-item class="item-avatar" id="pros-list-item6" ui-sref="userProfile({})" collection-repeat="pro in list | orderBy: 'name'" ng-click="showPro(pro)">
+      <ion-item class="item-avatar" id="pros-list-item6" ui-sref="userProfile({})" collection-repeat="pro in list | orderBy: 'name'" ng-click="view(pro)">
         <img src="img/DJzHUXHhSIdSKV2WrotQ_profile_image.jpg">
         <h2>{{pro.name}}</h2>
         <p style="white-space:normal;">{{pro.phone}}</p>

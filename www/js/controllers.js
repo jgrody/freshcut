@@ -320,8 +320,7 @@ angular.module('app.controllers', [])
             })
     };
     
-    $scope.showPro = function(pro){
-        console.log(pro.$id)
+    $scope.view = function(pro){
        goTo.showPro(pro);
     };
     
@@ -335,15 +334,10 @@ angular.module('app.controllers', [])
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, repo) {
-    var ref;
-    var clientRef;
     var ID = $stateParams.id;
-    
-    $ionicUser.load().then(function(){
-        ref = firebase.database().ref();
-        clientRef = ref.child($ionicUser.id).child('clients').child(ID)
-        $scope.client = $firebaseObject(clientRef);
-    })
+    var ref = firebase.database().ref();
+    var clientRef = ref.child($ionicUser.id).child('clients').child(ID)
+    $scope.client = $firebaseObject(clientRef);
     
     $scope.editClient = function(){
         goTo.editClient($scope.client);
@@ -361,36 +355,26 @@ function ($scope, $stateParams, $ionicUser, $firebaseObject, goTo, repo) {
     
 }])
    
-.controller('userProfileCtrl', ['$scope', '$state', '$ionicUser', '$firebaseArray', 'goTo', 'repo', function ($scope, $state, $ionicUser, $firebaseArray, goTo, repo) {
+.controller('userProfileCtrl', ['$scope', '$state', '$ionicUser', '$firebaseObject', '$stateParams', 'goTo', 'repo', function ($scope, $state, $ionicUser, $firebaseObject, $stateParams, goTo, repo) {
+    var ID = $stateParams.id;
     var ref = firebase.database().ref();
-    var proRef = ref.child($ionicUser.id).child('menu.pros');
-    $scope.list = $firebaseArray(proRef);
+    var proRef = ref.child($ionicUser.id).child('pros').child(ID)
+    $scope.pro = $firebaseObject(proRef);
     
     $scope.remove = function(pro){
-        return repo.removeFromList($scope.list, pro)
+        return repo.removeObject($scope.pro)
             .then(function(res){
                 if (res) goTo.pros();
             })
     };
     
-    $scope.showPro = function(pro){
-        console.log(pro.$id)
-       goTo.showPro(pro);
-    };
-    
     $scope.goToAddNew = function(){
         goTo.addPro();
     }
+    
+    $scope.backToPros = function(){
+        goTo.pros();
+    }
   
-}])
-   
-.controller('pageCtrl', ['$scope', '$stateParams', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $http) {
-    var url = "https://sheetsu.com/apis/v1.0/2d94e8863d03"
-    $http.get(url).then(function(data){
-        console.log('data', data)
-    })
 }])
  

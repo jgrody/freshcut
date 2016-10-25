@@ -78,10 +78,14 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('pros', {
+  .state('menu.pros', {
     url: '/page16',
-    templateUrl: 'templates/pros.html',
-    controller: 'prosCtrl'
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/pros.html',
+        controller: 'prosCtrl'
+      }
+    }
   })
 
   .state('client', {
@@ -100,12 +104,6 @@ angular.module('app.routes', [])
 },
     templateUrl: 'templates/userProfile.html',
     controller: 'userProfileCtrl'
-  })
-
-  .state('page', {
-    url: '/page10',
-    templateUrl: 'templates/page.html',
-    controller: 'pageCtrl'
   })
 
 $urlRouterProvider.otherwise('/page8')

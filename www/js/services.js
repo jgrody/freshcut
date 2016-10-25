@@ -89,7 +89,7 @@ angular.module('app.services', [])
         },
         
         pros: function(){
-            return $state.go('pros');
+            return $state.go('menu.pros');
         },
         
         editPro: function(pro){
